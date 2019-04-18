@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    height: 400px;
+    background: #bbdefb;
+    margin: 20px;
+    padding: 25px;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.container .header {
+    margin: 0;
+    text-align: center;
+}
+.container .question {
+    text-align: justify;
+    font-size: 14px;
+    flex-direction: row-reverse;
+}
+.container .question .text-typed {
+    color: #99cc00;
+}
+.container .question .text-remaining {
+    color: #0f0f0f;
+}

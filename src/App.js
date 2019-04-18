@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { setParagraph } from './action';
+import { Provider } from 'react-redux';
+import store from './store'
+import TypeRacer from './component/typeRacer';
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    try { 
+      fetch('http://www.randomtext.me/api/')
+      .then(response => response.json())
+      .then(data => {
+        let masterText = data.text_out;
+        //Replacing all the <p>,</p> and /n
+        masterText = masterText.replace(new RegExp(`</p>|<p>|\n`, 'g'), "");
+        store.dispatch(setParagraph(masterText));
+      })
+    } catch(error) {
+        console.error("Unable to fetch data");
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Provider store={store}>
+        <TypeRacer />
+      </Provider>
     );
   }
 }
